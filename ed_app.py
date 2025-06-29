@@ -7,7 +7,7 @@ from streamlit_plotly_events import plotly_events
 # === Load Data ===
 @st.cache_data
 def load_data():
-    df = pd.read_csv("ED_Futures.csv")
+    df = pd.read_csv("ED_rates_all.csv")
     df['Date'] = pd.to_datetime(df['Date'])
     df = df.sort_values('Date')
     df['DateOnly'] = df['Date'].dt.date
