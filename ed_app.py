@@ -4,14 +4,19 @@ import pandas as pd
 import plotly.graph_objs as go
 from streamlit_plotly_events import plotly_events
 
-# === Load Data ===
 @st.cache_data
 def load_data():
     df = pd.read_csv("ED_rates_all.csv")
     df['Date'] = pd.to_datetime(df['Date'])
     df = df.sort_values('Date')
     df['DateOnly'] = df['Date'].dt.date
+
+    maturities = [f'ED{i}' for i in range(1, 17)]
+    for m in maturities:
+        df[m] = pd.to_numeric(df[m], errors='coerce')  # <- Force to float, handle junk
+
     return df
+
 
 # === Statistics Function ===
 def compute_stats(series):
