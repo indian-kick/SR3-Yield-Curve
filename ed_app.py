@@ -11,11 +11,13 @@ def load_data():
     df = df.sort_values('Date')
     df['DateOnly'] = df['Date'].dt.date
 
+    # Explicitly force numeric for ED1–ED16
     maturities = [f'ED{i}' for i in range(1, 17)]
     for m in maturities:
-        df[m] = pd.to_numeric(df[m], errors='coerce')  # <- Force to float, handle junk
+        df[m] = pd.to_numeric(df[m], errors='coerce')  # forces conversion, NaNs if bad data
 
     return df
+
 
 
 # === Statistics Function ===
