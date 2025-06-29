@@ -72,7 +72,6 @@ with main_tab:
         if df_filtered[col].notna().sum() > 10:  # Only plot if >10 valid points
             fig_ts_click.add_trace(go.Scatter(x=df_filtered['Date'], y=df_filtered[col], mode='lines', name=col))
 
-
     fig_ts_click.update_layout(title="Click on a date to show the ED curve", hovermode='x unified')
     selected = plotly_events(fig_ts_click, click_event=True)
 
@@ -104,11 +103,9 @@ with main_tab:
     row = df_filtered.iloc[proposed_index]
     maturities_available = [m for m in maturities if pd.notna(row[m])]
     yc = [row[m] for m in maturities_available]
+    
     fig_yc = go.Figure()
     fig_yc.add_trace(go.Scatter(x=maturities_available, y=yc, mode='lines+markers', line=dict(color='black')))
-
-    fig_yc = go.Figure()
-    fig_yc.add_trace(go.Scatter(x=maturities, y=yc, mode='lines+markers', line=dict(color='black')))
     fig_yc.update_layout(title=f"ED Curve on {row['DateOnly']}")
     st.plotly_chart(fig_yc, use_container_width=True)
 
