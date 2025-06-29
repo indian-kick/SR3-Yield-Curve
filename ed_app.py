@@ -76,7 +76,6 @@ with main_tab:
 
     fig_ts_click = go.Figure()
     for col in maturities:
-        if df_filtered[col].notna().sum() > 10:  # Only plot if >10 valid points
             fig_ts_click.add_trace(go.Scatter(x=df_filtered['Date'], y=df_filtered[col], mode='lines', name=col))
 
     fig_ts_click.update_layout(title="Click on a date to show the ED curve", hovermode='x unified')
